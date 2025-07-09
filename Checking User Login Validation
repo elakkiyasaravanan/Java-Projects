@@ -1,0 +1,34 @@
+package validation;
+
+import java.util.Scanner;
+
+public class UserLoginValidation {
+    public static void main(String[] args) {
+        // Predefined username and password
+        String validUsername = "admin";
+        String validPassword = "1234";
+
+        // Scanner to take user input
+        Scanner scanner = new Scanner(System.in);
+
+        // Prompt user to enter username and password
+        System.out.print("Enter username: ");
+        String username = scanner.nextLine();
+
+        System.out.print("Enter password: ");
+        String password = scanner.nextLine();
+
+        // Login validation using if-else
+        if (username.equals(validUsername) && password.equals(validPassword)) {
+            System.out.println("Login successful! Welcome, " + username + ".");
+        } else if (!username.equals(validUsername) && password.equals(validPassword)) {
+            System.out.println("Invalid username.");
+        } else if (username.equals(validUsername) && !password.equals(validPassword)) {
+            System.out.println("Invalid password.");
+        } else {
+            System.out.println("Both username and password are incorrect.");
+        }
+
+        scanner.close();
+    }
+}
