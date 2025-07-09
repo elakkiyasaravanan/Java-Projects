@@ -1,0 +1,90 @@
+package tracker;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Expense {
+    String category;
+    double amount;
+    String date;
+
+    public Expense(String category, double amount, String date) {
+        this.category = category;
+        this.amount = amount;
+        this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "Category: " + category + ", Amount: $" + amount + ", Date: " + date;
+    }
+}
+
+public class ExpenseTracker {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Expense> expenses = new ArrayList<>();
+        boolean keepRunning = true;
+
+        System.out.println("=== Expense Tracker ===");
+
+        while (keepRunning) {
+            // Menu
+            System.out.println("\nChoose an option:");
+            System.out.println("1. Add Expense");
+            System.out.println("2. List Expenses");
+            System.out.println("3. Total Expenses");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();  // Consume newline
+
+            switch (choice) {
+                case 1:
+                    // Add Expense
+                    System.out.print("Enter category: ");
+                    String category = scanner.nextLine();
+                    System.out.print("Enter amount: ");
+                    double amount = scanner.nextDouble();
+                    scanner.nextLine();  // Consume newline
+                    System.out.print("Enter date (MM/DD/YYYY): ");
+                    String date = scanner.nextLine();
+                    expenses.add(new Expense(category, amount, date));
+                    System.out.println("Expense added successfully!");
+                    break;
+
+                case 2:
+                    // List Expenses
+                    if (expenses.isEmpty()) {
+                        System.out.println("No expenses to display.");
+                    } else {
+                        System.out.println("\nExpenses List:");
+                        for (Expense exp : expenses) {
+                            System.out.println(exp);
+                        }
+                    }
+                    break;
+
+                case 3:
+                    // Total Expenses
+                    double total = 0;
+                    for (Expense exp : expenses) {
+                        total += exp.amount;
+                    }
+                    System.out.println("Total expenses: $" + total);
+                    break;
+
+                case 4:
+                    // Exit
+                    System.out.println("Exiting Expense Tracker. Goodbye!");
+                    keepRunning = false;
+                    break;
+
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+
+        scanner.close();
+    }
+}
