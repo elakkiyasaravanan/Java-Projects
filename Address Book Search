@@ -1,0 +1,116 @@
+package addressbooksearch;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Contact {
+    String name;
+    String phone;
+    String email;
+
+    public Contact(String name, String phone, String email) {
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Name: " + name + ", Phone: " + phone + ", Email: " + email;
+    }
+}
+
+public class AddressBook {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Contact> contacts = new ArrayList<>();
+        boolean keepRunning = true;
+
+        System.out.println("=== Address Book ===");
+
+        while (keepRunning) {
+            // Menu
+            System.out.println("\nChoose an option:");
+            System.out.println("1. Add Contact");
+            System.out.println("2. List Contacts");
+            System.out.println("3. Search Contact by Name");
+            System.out.println("4. Delete Contact");
+            System.out.println("5. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine();  // Consume newline
+
+            switch (choice) {
+                case 1:
+                    // Add Contact
+                    System.out.print("Enter name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter phone number: ");
+                    String phone = scanner.nextLine();
+                    System.out.print("Enter email: ");
+                    String email = scanner.nextLine();
+                    contacts.add(new Contact(name, phone, email));
+                    System.out.println("Contact added successfully!");
+                    break;
+
+                case 2:
+                    // List Contacts
+                    if (contacts.isEmpty()) {
+                        System.out.println("No contacts to display.");
+                    } else {
+                        System.out.println("\nContacts List:");
+                        for (Contact contact : contacts) {
+                            System.out.println(contact);
+                        }
+                    }
+                    break;
+
+                case 3:
+                    // Search Contact by Name
+                    System.out.print("Enter name to search: ");
+                    String searchName = scanner.nextLine();
+                    boolean found = false;
+                    for (Contact contact : contacts) {
+                        if (contact.name.equalsIgnoreCase(searchName)) {
+                            System.out.println("Found: " + contact);
+                            found = true;
+                            break;
+                        }
+                    }
+                    if (!found) {
+                        System.out.println("Contact not found.");
+                    }
+                    break;
+
+                case 4:
+                    // Delete Contact
+                    System.out.print("Enter name to delete: ");
+                    String deleteName = scanner.nextLine();
+                    boolean deleted = false;
+                    for (Contact contact : contacts) {
+                        if (contact.name.equalsIgnoreCase(deleteName)) {
+                            contacts.remove(contact);
+                            System.out.println("Contact deleted.");
+                            deleted = true;
+                            break;
+                        }
+                    }
+                    if (!deleted) {
+                        System.out.println("Contact not found.");
+                    }
+                    break;
+
+                case 5:
+                    // Exit
+                    System.out.println("Exiting Address Book. Goodbye!");
+                    keepRunning = false;
+                    break;
+
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+
+        scanner.close();
+    }
+}
