@@ -1,0 +1,61 @@
+package Game;
+import java.util.Random;
+import java.util.Scanner;
+public class rockpaperscissor {
+	
+	    public static void main(String[] args) {
+	        Scanner scanner = new Scanner(System.in);
+	        Random random = new Random();
+
+	        String[] choices = {"Rock", "Paper", "Scissors"};
+	        boolean playAgain = true;
+
+	        System.out.println("=== Rock-Paper-Scissors Game ===");
+
+	        while (playAgain) {
+	            // Display options
+	            System.out.println("\nChoose:");
+	            System.out.println("0 - Rock");
+	            System.out.println("1 - Paper");
+	            System.out.println("2 - Scissors");
+	            System.out.print("Enter your choice: ");
+	            int userChoice = scanner.nextInt();
+
+	            // Validate user input
+	            if (userChoice < 0 || userChoice > 2) {
+	                System.out.println("Invalid choice. Try again.");
+	                continue;
+	            }
+
+	            // Computer choice
+	            int computerChoice = random.nextInt(3);
+
+	            System.out.println("You chose: " + choices[userChoice]);
+	            System.out.println("Computer chose: " + choices[computerChoice]);
+
+	            // Determine winner
+	            if (userChoice == computerChoice) {
+	                System.out.println("It's a tie!");
+	            } else if (
+	                (userChoice == 0 && computerChoice == 2) || // Rock beats Scissors
+	                (userChoice == 1 && computerChoice == 0) || // Paper beats Rock
+	                (userChoice == 2 && computerChoice == 1)    // Scissors beats Paper
+	            ) {
+	                System.out.println("You win!");
+	            } else {
+	                System.out.println("Computer wins!");
+	            }
+
+	            // Play again?
+	            System.out.print("\nDo you want to play again? (yes/no): ");
+	            String again = scanner.next();
+	            if (!again.equalsIgnoreCase("yes")) {
+	                playAgain = false;
+	                System.out.println("Thanks for playing!");
+	            }
+	        }
+
+	        scanner.close();
+	    }
+	}
+
