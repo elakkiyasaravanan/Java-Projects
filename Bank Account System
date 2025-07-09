@@ -1,0 +1,90 @@
+//Accounts Class
+package Banking;
+
+//This class represents a bank account
+class Account {
+ String accountHolderName; // Name of the account holder
+ int accountNumber; // Account number
+ double balance; // Balance in the account
+
+ // Constructor to initialize the account
+ Account(String name, int number) {
+     this.accountHolderName = name;
+     this.accountNumber = number;
+     this.balance = 0.0; // Initial balance is zero
+ }
+
+ // Method to deposit money into the account
+ void deposit(double amount) {
+     balance += amount; // Add the amount to the balance
+     System.out.println(amount + " deposited. New balance: " + balance);
+ }
+
+ // Method to withdraw money from the account
+ void withdraw(double amount) {
+     if (amount <= balance) {
+         balance -= amount; // Subtract the amount from the balance
+         System.out.println(amount + " withdrawn. New balance: " + balance);
+     } else {
+         System.out.println("Insufficient balance.");
+     }
+ }
+ // Method to check the current balance
+ void checkBalance() {
+     System.out.println("Current balance: " + balance);
+ }
+}
+//banking
+package Banking;
+
+import java.util.Scanner; // Import the Scanner class for taking user input
+
+public class BankSystem {
+    public static void main(String[] args) {
+        // Create a Scanner object to take user input
+        Scanner scanner = new Scanner(System.in);
+
+        // Get account holder's details and create an account object
+        System.out.print("Enter account holder's name: ");
+        String name = scanner.nextLine(); // Take the name input from user
+        System.out.print("Enter account number: ");
+        int accountNumber = scanner.nextInt(); // Take the account number input from user
+        Account account = new Account(name, accountNumber); // Create an Account object
+
+        // Run the bank menu in a loop until the user chooses to exit
+        while (true) {
+            // Display the menu of options for the user
+            System.out.println("\nBank Menu:");
+            System.out.println("1. Deposit");
+            System.out.println("2. Withdraw");
+            System.out.println("3. Check Balance");
+            System.out.println("4. Exit");
+
+            // Ask the user to choose an option
+            System.out.print("Choose an option: ");
+            int choice = scanner.nextInt(); // Get the user's choice
+
+            switch (choice) {
+                case 1: // Deposit
+                    System.out.print("Enter deposit amount: ");
+                    double depositAmount = scanner.nextDouble(); // Take deposit amount input
+                    account.deposit(depositAmount); // Call the deposit method from the Account class
+                    break;
+                case 2: // Withdraw
+                    System.out.print("Enter withdrawal amount: ");
+                    double withdrawAmount = scanner.nextDouble(); // Take withdrawal amount input
+                    account.withdraw(withdrawAmount); // Call the withdraw method from the Account class
+                    break;
+                case 3: // Check Balance
+                    account.checkBalance(); // Call the checkBalance method from the Account class
+                    break;
+                case 4: // Exit the program
+                    System.out.println("Exiting the system.");
+                    scanner.close(); 
+                    return; // Exit the program
+                default:
+                    System.out.println("Invalid choice. Try again."); // If the user enters an invalid option
+            }
+        }
+    }
+}
