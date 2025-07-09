@@ -1,0 +1,44 @@
+package quizgame;
+
+import java.util.Scanner;
+
+public class QuizApp {
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String[] questions = {
+            "Which language is used for Android development?",
+            "Which company created Java?",
+            "Which keyword is used to inherit a class in Java?",
+            "What is the size of int in Java?"
+        };
+        String[][] options = {
+            {"1. Java", "2. Python", "3. C++", "4. Swift"},
+            {"1. Microsoft", "2. Apple", "3. Sun Microsystems", "4. Google"},
+            {"1. implements", "2. extends", "3. inherits", "4. interface"},
+            {"1. 2 bytes", "2. 4 bytes", "3. 8 bytes", "4. Depends on OS"}
+        };
+        int[] answers = {1, 3, 2, 2};
+
+        int score = 0;
+
+        for (int i = 0; i < questions.length; i++) {
+            System.out.println(questions[i]);
+            for (String option : options[i]) {
+                System.out.println(option);
+            }
+            System.out.print("Enter your answer (1-4): ");
+            int userAnswer = scanner.nextInt();
+
+            if (userAnswer == answers[i]) {
+                System.out.println("Correct!\n");
+                score++;
+            } else {
+                System.out.println("Wrong!\n");
+            }
+        }
+
+        System.out.println("You scored " + score + " out of " + questions.length);
+        scanner.close();
+    }
+}
