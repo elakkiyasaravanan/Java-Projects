@@ -1,0 +1,115 @@
+package gradesystem;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+// Student class
+class Student {
+    String name;
+    int rollNo;
+    int[] marks;
+    int total;
+    float average;
+    char grade;
+
+    // Constructor
+    Student(String name, int rollNo, int[] marks) {
+        this.name = name;
+        this.rollNo = rollNo;
+        this.marks = marks;
+        calculateResults();
+    }
+
+    // Calculate total, average, and grade
+    void calculateResults() {
+        total = 0;
+        for (int mark : marks) {
+            total += mark;
+        }
+        average = total / (float) marks.length;
+
+        if (average >= 90)
+            grade = 'A';
+        else if (average >= 75)
+            grade = 'B';
+        else if (average >= 60)
+            grade = 'C';
+        else
+            grade = 'F';
+    }
+
+    // Display student details
+    void display() {
+        System.out.println("Name     : " + name);
+        System.out.println("Roll No  : " + rollNo);
+        System.out.print("Marks    : ");
+        for (int mark : marks) {
+            System.out.print(mark + " ");
+        }
+        System.out.println("\nTotal    : " + total);
+        System.out.println("Average  : " + average);
+        System.out.println("Grade    : " + grade);
+        System.out.println("---------------------------");
+    }
+}
+
+// Main application
+public class StudentGradeSystem{
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        ArrayList<Student> students = new ArrayList<>();
+
+        while (true) {
+            System.out.println("\n--- Student Grade Management System ---");
+            System.out.println("1. Add Student");
+            System.out.println("2. Display All Students");
+            System.out.println("3. Exit");
+            System.out.print("Enter your choice: ");
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // consume newline
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter student name: ");
+                    String name = scanner.nextLine();
+
+                    System.out.print("Enter roll number: ");
+                    int rollNo = scanner.nextInt();
+
+                    System.out.print("Enter number of subjects: ");
+                    int numSubjects = scanner.nextInt();
+
+                    int[] marks = new int[numSubjects];
+                    System.out.println("Enter marks for " + numSubjects + " subjects:");
+                    for (int i = 0; i < numSubjects; i++) {
+                        System.out.print("Subject " + (i + 1) + ": ");
+                        marks[i] = scanner.nextInt();
+                    }
+
+                    Student student = new Student(name, rollNo, marks);
+                    students.add(student);
+                    System.out.println("Student added successfully!");
+                    break;
+
+                case 2:
+                    if (students.isEmpty()) {
+                        System.out.println("No student records found.");
+                    } else {
+                        System.out.println("\n--- All Student Records ---");
+                        for (Student s : students) {
+                            s.display();
+                        }
+                    }
+                    break;
+
+                case 3:
+                    System.out.println("Exiting program. Goodbye!");
+                    return;
+
+                default:
+                    System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    }
+    
+}
+
